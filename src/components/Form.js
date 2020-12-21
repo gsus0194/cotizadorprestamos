@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+// import {Picker} from '@react-native-picker/picker';
+import RNPickerSelect from 'react-native-picker-select';
+
 import colors from '../utils/colors';
 
 const styles = StyleSheet.create({
@@ -37,7 +39,6 @@ const styles = StyleSheet.create({
 });
 
 const Form = () => {
-  const [selectedValue, setSelectedValue] = useState('java');
   return (
     <View style={styles.viewForm}>
       <View style={styles.viewInputs}>
@@ -52,24 +53,30 @@ const Form = () => {
           style={[styles.input, styles.inputPercentage]}
         />
       </View>
-      <Picker
-        selectedValue={selectedValue}
-        style={{height: 50, width: 150}}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </Picker>
-      {/* <Picker onValueChange={(value) => console.log(value)}>
-        <Picker.Item label="Seleccione un valor" value="0" />
-        <Picker.Item label="6 Meses" value="6" />
-        <Picker.Item label="12 Meses" value="12" />
-        <Picker.Item label="18 Meses" value="18" />
-        <Picker.Item label="24 Meses" value="24" />
-        <Picker.Item label="30 Meses" value="30" />
-        <Picker.Item label="36 Meses" value="36" />
-      </Picker> */}
+      <RNPickerSelect
+        onValueChange={(value) => console.log(value)}
+        items={[
+          {label: 'Football', value: 'football'},
+          {label: 'Baseball', value: 'baseball'},
+          {label: 'Hockey', value: 'hockey'},
+        ]}
+      />
     </View>
   );
 };
 
 export default Form;
+
+const picketSelectStyles = StyleSheet.create({
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'grey',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30,
+    backgroundColor: '#fff',
+  },
+});
