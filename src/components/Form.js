@@ -8,7 +8,7 @@ import colors from '../utils/colors';
 const styles = StyleSheet.create({
   viewForm: {
     position: 'absolute',
-    bottom: -90,
+    bottom: 0,
     width: '85%',
     paddingHorizontal: 50,
     backgroundColor: colors.PRIMARY_COLOR_DARK,
@@ -38,36 +38,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const Form = () => {
-  return (
-    <View style={styles.viewForm}>
-      <View style={styles.viewInputs}>
-        <TextInput
-          placeholder="Cantidad a pedir"
-          keyboardType="numeric"
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Interés %"
-          keyboardType="numeric"
-          style={[styles.input, styles.inputPercentage]}
-        />
-      </View>
-      <RNPickerSelect
-        onValueChange={(value) => console.log(value)}
-        items={[
-          {label: 'Football', value: 'football'},
-          {label: 'Baseball', value: 'baseball'},
-          {label: 'Hockey', value: 'hockey'},
-        ]}
-      />
-    </View>
-  );
-};
-
-export default Form;
-
 const picketSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30,
+    backgroundColor: '#fff',
+    marginLeft: -5,
+    marginRight: -5,
+  },
   inputAndroid: {
     fontSize: 16,
     paddingHorizontal: 10,
@@ -80,3 +64,37 @@ const picketSelectStyles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+const Form = ({setCapital, setInterest, setMonths}) => {
+  return (
+    <View style={styles.viewForm}>
+      <View style={styles.viewInputs}>
+        <TextInput
+          placeholder="Cantidad a pedir"
+          keyboardType="numeric"
+          style={styles.input}
+          onChange={(e) => setCapital(e.nativeEvent.text)}
+        />
+        <TextInput
+          placeholder="Interés %"
+          keyboardType="numeric"
+          style={[styles.input, styles.inputPercentage]}
+          onChange={(e) => setInterest(e.nativeEvent.text)}
+        />
+      </View>
+      <RNPickerSelect
+        style={picketSelectStyles}
+        onValueChange={(value) => setMonths(value)}
+        // placeholder={{label: 'Selecciona una opcion...', value: null}}
+        items={[
+          {label: '3 meses', value: 3},
+          {label: '6 meses', value: 6},
+          {label: '12 meses', value: 12},
+          {label: '24 meses', value: 24},
+        ]}
+      />
+    </View>
+  );
+};
+
+export default Form;
