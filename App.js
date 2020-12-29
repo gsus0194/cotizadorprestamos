@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -41,6 +41,10 @@ const App = () => {
   const [total, setTotal] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
+  useEffect(() => {
+    capital && interest && months ? calculate() : reset();
+  }, [capital, interest, months]);
+
   const calculate = () => {
     reset();
     if (!capital) {
@@ -77,7 +81,13 @@ const App = () => {
         />
       </SafeAreaView>
 
-      <ResultCalculation errorMsg={errorMsg} />
+      <ResultCalculation
+        capital={capital}
+        interest={interest}
+        months={months}
+        total={total}
+        errorMsg={errorMsg}
+      />
 
       <Footer calculate={calculate} />
     </>
